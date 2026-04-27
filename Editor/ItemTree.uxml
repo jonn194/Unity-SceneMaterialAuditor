@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/Tools/Editor/SceneMaterialStyles.uss?fileID=7433441132597879392&amp;guid=b0effe2b1ea35874a914b5d42c9e6a56&amp;type=3#SceneMaterialStyles"/>
+    <ui:VisualElement name="ItemRoot" style="flex-grow: 1; flex-direction: row; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; border-left-color: rgba(0, 0, 0, 0.25); border-right-color: rgba(0, 0, 0, 0.25); border-top-color: rgba(0, 0, 0, 0.25); border-bottom-color: rgba(0, 0, 0, 0.25); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-wrap: wrap; align-self: stretch; justify-content: space-between;">
+        <ui:Label text="Material name" name="ItemName" binding-path="ShaderName" class="textScaling doubleSpacing" style="-unity-text-align: middle-left; flex-wrap: wrap; white-space: normal; align-self: flex-start;"/>
+        <ui:VisualElement name="Containers" style="flex-grow: 1; flex-direction: row; align-self: flex-start; justify-content: flex-end; align-items: center;">
+            <ui:Image source="project://database/Resources/unity_builtin_extra?fileID=10913&amp;guid=0000000000000000f000000000000000&amp;type=0#Knob" tint-color="rgb(56, 56, 56)" name="ToggleIcon" style="width: 15px; height: 15px;"/>
+            <ui:Button text="Inspect" name="InspectButton" binding-path="InspectButton" class="textScaling" style="align-items: stretch; align-self: flex-start;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

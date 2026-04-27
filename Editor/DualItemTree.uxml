@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/Tools/Editor/SceneMaterialStyles.uss?fileID=7433441132597879392&amp;guid=b0effe2b1ea35874a914b5d42c9e6a56&amp;type=3#SceneMaterialStyles"/>
+    <ui:VisualElement name="DualItemRoot" style="flex-grow: 1; flex-direction: row; justify-content: flex-start; flex-wrap: wrap;">
+        <ui:Label text="Item Name" name="ItemName" style="white-space: normal;"/>
+        <ui:VisualElement name="Spacing" style="flex-grow: 1;"/>
+        <ui:Label text="Item Types" name="ItemType" style="white-space: normal;"/>
+    </ui:VisualElement>
+</ui:UXML>

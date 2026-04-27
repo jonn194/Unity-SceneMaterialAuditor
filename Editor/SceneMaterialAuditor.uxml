@@ -1,0 +1,84 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/Tools/Editor/SceneMaterialStyles.uss?fileID=7433441132597879392&amp;guid=b0effe2b1ea35874a914b5d42c9e6a56&amp;type=3#SceneMaterialStyles"/>
+    <ui:VisualElement name="MainPane" style="flex-grow: 1; flex-direction: row; align-items: stretch; align-self: stretch; align-content: flex-start;">
+        <ui:VisualElement name="LeftPane" style="flex-grow: 1; padding-top: 0; padding-bottom: 0; flex-wrap: wrap;">
+            <ui:Label text="Search" name="SceneTitle" class="titleStyle underline"/>
+            <ui:Button text="Scan" name="ScanButton" tooltip="Scan for materials used in the scene" class="quadrupleSpacing textScaling titleStyle"/>
+            <ui:Foldout text="Scan Filters" tooltip="Filter the scan according to different types of renderers" name="ScanFiltersFoldout" class="quadrupleSpacing" style="flex-grow: 1; align-self: stretch;">
+                <ui:Toggle label="Mesh Renderer" name="MeshRendererToggle" value="true" class="quadrupleSpacing" style="align-self: stretch;"/>
+                <ui:Toggle label="Skinned Mesh Renderer" name="SkinnedMeshRendererToggle" value="true" class="quadrupleSpacing"/>
+                <ui:Toggle label="Sprite Renderer" name="SpriteRendererToggle" value="true" class="quadrupleSpacing"/>
+                <ui:Toggle label="Line Renderer" name="LineRendererToggle" value="true" class="quadrupleSpacing"/>
+                <ui:Toggle label="Trail Renderer" name="TrailRendererToggle" value="true" class="quadrupleSpacing"/>
+                <ui:Toggle label="Particles System" name="ParticleSystemToggle" value="true" class="quadrupleSpacing"/>
+                <ui:VisualElement name="ButtonsContainer" class="quadrupleSpacing" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-self: flex-start; flex-wrap: wrap;">
+                    <ui:Button text="All" name="AllFiltersButton" class="textScaling" style="flex-wrap: wrap;"/>
+                    <ui:Button text="None" name="NoneFiltersButton" class="textScaling" style="flex-wrap: wrap;"/>
+                </ui:VisualElement>
+            </ui:Foldout>
+            <ui:VisualElement name="SummaryContainer" style="flex-grow: 1; justify-content: flex-end; flex-wrap: wrap;">
+                <ui:Label text="Scan Summary" name="ScanSummary" class="titleStyle" style="border-left-width: 1px; border-bottom-width: 1px; border-top-width: 1px; border-left-color: rgba(0, 0, 0, 0.25); border-right-color: rgba(0, 0, 0, 0.25); border-top-color: rgba(0, 0, 0, 0.25); border-bottom-color: rgba(0, 0, 0, 0.25); flex-wrap: wrap; white-space: normal;"/>
+                <ui:Label text="Total materials: -" name="TotalMaterials" class="doubleSpacing textScaling" style="flex-wrap: wrap; white-space: normal;"/>
+                <ui:Label text="Total Shaders: -" name="TotalShaders" class="doubleSpacing textScaling" style="flex-wrap: wrap; white-space: normal;"/>
+                <ui:Label text="Total Renderers: -" name="TotalRenderers" class="doubleSpacing textScaling" style="flex-wrap: wrap; white-space: normal;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1; margin-top: 5px; margin-right: 0; margin-bottom: 5px; margin-left: 0;"/>
+            <ui:VisualElement name="HeaderContainer" style="flex-grow: 0; align-self: stretch; align-items: center; flex-direction: row; justify-content: flex-start; background-color: rgb(0, 0, 0); flex-wrap: wrap;">
+                <ui:Image source="project://database/Assets/Tools/Editor/MoonJMS_Logo_Small.jpg?fileID=2800000&amp;guid=a0030c0f6fac6794785f8606f37884b5&amp;type=3#MoonJMS_Logo_Small" name="JMSIcon" style="max-width: 40px; max-height: 40px;"/>
+                <ui:Label text="J.M. Salice Tools" name="Title" style="font-size: 15px; -unity-font-style: bold; -unity-text-align: upper-left; letter-spacing: 5px; white-space: normal; align-self: center; align-content: flex-start; flex-grow: 1; flex-shrink: 1; -unity-text-auto-size: best-fit 1px 15px;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="CenterPane" style="flex-grow: 1; border-top-width: 0; border-right-width: 1px; border-bottom-width: 0; border-left-width: 1px; border-left-color: rgba(0, 0, 0, 0.25); border-right-color: rgba(0, 0, 0, 0.25); border-top-color: rgba(0, 0, 0, 0.25); border-bottom-color: rgba(0, 0, 0, 0.25); width: 450px;">
+            <ui:Label text="Results" name="ResultsTitle" class="titleStyle underline"/>
+            <ui:DropdownField label="Filter by Shader" name="FilterByShader" tooltip="Filter the results according to the shaders used"/>
+            <ui:ListView allow-add="false" allow-remove="false" name="FoundItemsView" binding-path="FoundItemsView" virtualization-method="DynamicHeight" focusable="false" show-alternating-row-backgrounds="ContentOnly" class="quadrupleSpacing" style="align-content: auto;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="RightPane" style="flex-grow: 1; width: 300px;">
+            <ui:Label text="Information" name="InfoTitle" class="titleStyle underline"/>
+            <ui:Label text="Inspecting Material Name" name="InspectingMaterial" class="textSubtitleScaling quadrupleSpacing" style="align-self: stretch; white-space: normal; -unity-text-align: upper-center; color: rgb(0, 229, 102); -unity-font-style: bold;"/>
+            <ui:TabView reorderable="true" style="flex-grow: 1;">
+                <ui:Tab label="Material" name="MaterialInfo">
+                    <ui:Label text="Path: -" name="MaterialPath" class="textScaling quadrupleSpacing" style="white-space: normal;"/>
+                    <ui:Label text="Uses: -" name="MaterialUses" class="textScaling quadrupleSpacing" style="white-space: normal;"/>
+                    <ui:Label text="Render Queue: -" name="MaterialQueue" class="textScaling quadrupleSpacing" style="white-space: normal;"/>
+                    <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1;"/>
+                    <ui:Foldout text="Material Resources" name="MaterialResourcesFoldout" value="false" class="doubleSpacing" style="-unity-text-auto-size: none;">
+                        <ui:ListView allow-remove="false" allow-add="false" virtualization-method="DynamicHeight" name="MaterialResourcesView" show-alternating-row-backgrounds="ContentOnly" show-border="false"/>
+                    </ui:Foldout>
+                    <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1;"/>
+                    <ui:Button text="Select Focused in Project" name="SelectFocusedResourceButton" tooltip="Select the focused resouce in the project window" enabled="false" class="textScaling" style="white-space: normal;"/>
+                    <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1;"/>
+                    <ui:Button text="Select Material in Project" name="SelectMaterialButton" tooltip="Select the current material in the project window" enabled="false" class="textScaling" style="white-space: normal;"/>
+                </ui:Tab>
+                <ui:Tab label="Shader" name="ShaderInfo">
+                    <ui:Label text="Shader Name: -" name="ShaderName" class="textScaling quadrupleSpacing" style="white-space: normal;"/>
+                    <ui:Label text="Path: -" name="ShaderPath" class="textScaling quadrupleSpacing" style="white-space: normal;"/>
+                    <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1;"/>
+                    <ui:Foldout text="Shader Keywords" value="false" name="ShaderKeywordsFoldout">
+                        <ui:ListView name="ShaderKeywordsView" show-alternating-row-backgrounds="ContentOnly" virtualization-method="DynamicHeight" allow-remove="false" allow-add="false" show-foldout-header="false" header-title="Shader Keywords" class="doubleSpacing"/>
+                    </ui:Foldout>
+                    <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1;"/>
+                    <ui:Foldout text="Shader Passes" value="false" name="ShaderPassesFoldout">
+                        <ui:ListView name="ShaderPassesView" show-alternating-row-backgrounds="ContentOnly" virtualization-method="DynamicHeight" allow-remove="false" allow-add="false" show-foldout-header="false" header-title="Shader Passes" class="doubleSpacing"/>
+                    </ui:Foldout>
+                    <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1;"/>
+                    <ui:Foldout text="Shader Properties" value="false" name="ShaderPropertiesFoldout">
+                        <ui:ListView allow-remove="false" allow-add="false" virtualization-method="DynamicHeight" name="ShaderPropertiesView" show-alternating-row-backgrounds="ContentOnly" show-foldout-header="false" header-title="Shader Properties" class="doubleSpacing"/>
+                    </ui:Foldout>
+                    <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1;"/>
+                    <ui:Button text="Select Shader in Project" name="SelectShaderButton" tooltip="Select the shader used in the current material in the project window" enabled="false" class="textScaling"/>
+                </ui:Tab>
+                <ui:Tab label="Renderers" name="RenderersInfo">
+                    <ui:Foldout text="Found Renderers" name="FoundRenderersFoldout" value="false">
+                        <ui:ListView allow-remove="false" allow-add="false" show-alternating-row-backgrounds="ContentOnly" virtualization-method="DynamicHeight" name="RenderersView" binding-path="RenderersView" show-add-remove-footer="false" horizontal-scrolling="false" show-foldout-header="false" header-title="" class="doubleSpacing"/>
+                    </ui:Foldout>
+                    <ui:VisualElement name="Spacing" class="spacing" style="flex-grow: 1;"/>
+                    <ui:VisualElement name="ButtonsContainer" style="flex-grow: 1; flex-direction: row; justify-content: space-between; min-height: 20px;">
+                        <ui:Button text="Select All in Scene" name="SelectAllRenderers" tooltip="Select all the renderers using the material in the scene" enabled="false" class="textScaling"/>
+                        <ui:Button text="Select Focused in Scene" name="SelectFocusedButton" tooltip="Select only the renderer selected in the list in the scene" enabled="false" class="textScaling"/>
+                    </ui:VisualElement>
+                </ui:Tab>
+            </ui:TabView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
